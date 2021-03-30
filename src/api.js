@@ -8,7 +8,7 @@ router.get("/", (_, res) => {
   res.json({
     user: {
       firstName: "john",
-      lastName: "john",
+      lastName: "doe",
       email: "john.doe@seed.ca",
     },
   });
