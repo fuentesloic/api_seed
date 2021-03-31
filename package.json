@@ -5,7 +5,7 @@
   "main": "src/api.js",
   "scripts": {
     "serve": "netlify-lambda serve src --config ./webpack.functions.js",
-    "build": "netlify-lambda build src --config ./webpack.functions.js"
+    "build": "netlify-lambda build src"
   },
   "dependencies": {
     "encoding": "^0.1.13",
