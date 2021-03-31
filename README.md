@@ -16,9 +16,16 @@ To be able to run the DB locally you will need the env file with secrets.
 - Netlify: [account](https://app.netlify.com/teams/fuentesloic)
 - Github: [account](https://github.com/fuentesloic/seed)
 
-## Command
+## CLI
+
+### NPM
 
 - Install dependencies: `npm install`
 - Build the api with db: `npm run build`
 - Start the server with api: `npm run start`
 - Start DB interface: `netlify addons:auth fauna`
+
+### Netlify
+
+- Install: `npm install netlify-cli -g`
+- Start: `netlify dev`
