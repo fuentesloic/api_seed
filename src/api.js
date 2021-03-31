@@ -3,7 +3,7 @@ const fauna = require('faunadb')
 const { Create, Get, Index, Match, Collection } = fauna.query
 
 const client = new fauna.Client({
-  secret: process.env.FAUNA_SERVER_SECRET
+  secret: process.env.FAUNADB_SERVER_SECRET
 })
 
 // API
