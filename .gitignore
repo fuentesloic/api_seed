@@ -102,8 +102,9 @@ typings/
 # TernJS port file
 .tern-port
 
-# Local Netlify folder
+# Netlify
 .netlify
+functions/api.js
 
 # faunaDB
 .faunarc

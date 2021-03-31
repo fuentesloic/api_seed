@@ -4,8 +4,8 @@
   "description": "Serverless API with lambda function and netlify CI/CD",
   "main": "src/api.js",
   "scripts": {
-    "serve": "./node_modules/.bin/netlify-lambda serve src --config ./webpack.functions.js",
-    "build": "./node_modules/.bin/netlify-lambda build src"
+    "serve": "netlify-lambda serve src --config ./webpack.functions.js",
+    "build": "netlify-lambda build src --config ./webpack.functions.js"
   },
   "dependencies": {
     "encoding": "^0.1.13",
