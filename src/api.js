@@ -1,19 +1,51 @@
-const express = require("express");
-const serverless = require("serverless-http");
+// DB
+const fauna = require('faunadb')
+const { Create, Get, Index, Match, Collection } = fauna.query
 
-const app = express();
-const router = express.Router();
+const client = new fauna.Client({
+  secret: process.env.FAUNA_SERVER_SECRET
+})
 
-router.get("/", (_, res) => {
-  res.json({
-    user: {
-      firstName: "john",
-      lastName: "doe",
-      email: "john.doe@seed.ca",
-    },
-  });
-});
+// API
+const express = require('express')
+const serverless = require('serverless-http')
 
-app.use("/.netlify/functions/api", router);
+const app = express()
+const router = express.Router()
 
-module.exports.handler = serverless(app);
+// POC: GET user from db
+router.get('/get/user/:name', async (req, res) => {
+  const doc = await client
+    .query(
+      Get(
+        Match(
+          Index('users_by_name'),
+          req.params.name
+        )
+      )
+    ).catch((e) => res.send(e))
+
+  res.send(doc)
+})
+
+// POC: POST user to db
+router.get('/post/user/:name', async (req, res) => {
+  const { name } = req.params
+  const email = `${name}@seed.ca`
+
+  const data = { email, name }
+
+  const doc = await client
+    .query(
+      Create(
+        Collection('users'),
+        { data }
+      )
+    ).catch((e) => res.send(e))
+
+  res.send(doc)
+})
+
+app.use('/.netlify/functions/api', router)
+
+module.exports.handler = serverless(app)
