@@ -2,5 +2,8 @@
     "cSpell.ignoreWords": [
         "faunadb",
         "faunarc"
+    ],
+    "cSpell.words": [
+        "fullname"
     ]
 }

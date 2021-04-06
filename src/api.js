@@ -1,3 +1,6 @@
+// UTILS
+const { createAuthUser } = require('./utils/fauna')
+
 // DB
 const fauna = require('faunadb')
 const { Create, Get, Index, Match, Collection } = fauna.query
@@ -10,41 +13,40 @@ const client = new fauna.Client({
 const express = require('express')
 const serverless = require('serverless-http')
 
+// SERVER
 const app = express()
 const router = express.Router()
 
-// POC: GET user from db
-router.get('/get/user/:name', async (req, res) => {
-  const doc = await client
-    .query(
-      Get(
-        Match(
-          Index('users_by_name'),
-          req.params.name
-        )
-      )
-    ).catch((e) => res.send(e))
-
-  res.send(doc)
+// ROUTES
+router.get('/check', (_, res) => {
+  res
+    .send({ message: 'Api is up and running' })
+    .catch((error) => res.status(503).send(error))
 })
 
-// POC: POST user to db
-router.get('/post/user/:name', async (req, res) => {
-  const { name } = req.params
-  const email = `${name}@seed.ca`
+router.get('/auth/register', async (req, res) => {
+  const user = createAuthUser(req.body)
 
-  const data = { email, name }
+  const payload = await client
+    .query(Create(Collection('users'), user))
+    .catch((e) => res.status(404).send(e))
 
-  const doc = await client
-    .query(
-      Create(
-        Collection('users'),
-        { data }
-      )
-    ).catch((e) => res.send(e))
-
-  res.send(doc)
+  res.status(201).send(payload)
 })
+
+router.get('/auth/login', async (req, res) => {
+  const user = new User(req.body)
+
+  const payload = await client
+    .Login(Match(Index('users_by_email'), user.email), {
+      password: user.password
+    })
+    .catch((e) => res.status(404).send(e))
+
+  res.status(201).send(payload)
+})
+
+router.get('/auth/logout', async (req, res) => {})
 
 app.use('/.netlify/functions/api', router)
 
