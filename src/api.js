@@ -3,7 +3,7 @@ const { createAuthUser } = require('./utils/fauna')
 
 // DB
 const fauna = require('faunadb')
-const { Create, Get, Index, Match, Collection } = fauna.query
+const { Create, Index, Match, Collection } = fauna.query
 
 const client = new fauna.Client({
   secret: process.env.FAUNADB_SERVER_SECRET

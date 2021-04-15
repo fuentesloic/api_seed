@@ -22,7 +22,7 @@ To be able to run the DB locally you will need the env file with secrets.
 
 - Install dependencies: `npm install`
 - Build the api with db: `npm run build`
-- Start the server with api: `npm run start`
+- serve the server with api: `npm run serve`
 - Start DB interface: `netlify addons:auth fauna`
 
 ### Netlify
